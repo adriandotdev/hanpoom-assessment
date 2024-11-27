@@ -1,99 +1,194 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# ![alt text](image-2.png) Hanpoom  Assessment 
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+- [ Hanpoom  Assessment](#-hanpoom--assessment)
+  - [Prerequisites](#prerequisites)
+  - [Database Setup](#database-setup)
+    - [Creation of Database, and Tables](#creation-of-database-and-tables)
+  - [Insertion of Data](#insertion-of-data)
+  - [Running the Project](#running-the-project)
+  - [Technologies Used](#technologies-used)
+  - [APIs](#apis)
+    - [GET Picking Slips](#get-picking-slips)
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
+## Prerequisites
+Ensure the following are installed in your local machine:
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- Git
+- NodeJS
+- MySQL
+- Any MySQL editor like (SQLYog, MySQL Workbench)
 
-## Project setup
+[Back to Top](#hanpoom-assessment)
 
-```bash
-$ npm install
+## Database Setup
+
+Setup the database, tables, and data that we need:
+
+### Creation of Database, and Tables
+
+```sql
+CREATE DATABASE hanpoom_database;
+
+USE DATABASE hanpoom_database;
+
+CREATE TABLE picking_slips (
+ id BIGINT(20),
+ order_id BIGINT(20),
+ order_fulfillment_order_id BIGINT(20),
+ is_contained_single_product TINYINT(1),
+ created_at TIMESTAMP,
+ PRIMARY KEY (id)
+);
+	
+CREATE TABLE picking_slip_dates (
+ id BIGINT(20),
+ picking_slip_id BIGINT(20),
+ printed_username VARCHAR(20),
+ inspected_username VARCHAR(20),
+ packed_username VARCHAR(20),
+ shipped_username VARCHAR(20),
+ held_username VARCHAR(20),
+ cancelled_username VARCHAR(20),
+ refunded_username VARCHAR(20),
+ confirmed_username VARCHAR(20),
+ printed_at TIMESTAMP,
+ inspected_at TIMESTAMP,
+ packed_at TIMESTAMP,
+ shipped_at TIMESTAMP,
+ delivered_at TIMESTAMP,
+ returned_at TIMESTAMP, 
+ cancelled_at TIMESTAMP,
+ refunded_at TIMESTAMP,
+ held_at TIMESTAMP,
+ confirmed_at TIMESTAMP,
+ held_reason VARCHAR(20),
+ PRIMARY KEY (id),
+ FOREIGN KEY (picking_slip_id) REFERENCES picking_slips(id)
+);
+
+CREATE TABLE picking_slip_items (
+ id BIGINT(20),
+ picking_slip_id BIGINT(20),
+ item_id BIGINT(20),
+ stock_id BIGINT(20),
+ order_fulfillment_product_id BIGINT(20),
+ quantity INT(11),
+ refunded_quantity INT(11),
+ location_id BIGINT(20),
+ location_code VARCHAR(30),
+ is_pre_order TINYINT(1),
+ is_sales_only TINYINT(1),
+ pre_order_shipping_at TIMESTAMP,
+ pre_order_deadline_at TIMESTAMP,
+ created_at TIMESTAMP,
+ updated_at TIMESTAMP,
+ PRIMARY KEY (id),
+ FOREIGN KEY (picking_slip_id) REFERENCES picking_slips(id)
+);
 ```
 
-## Compile and run the project
+[Back to Top](#hanpoom-assessment)
 
-```bash
-# development
-$ npm run start
 
-# watch mode
-$ npm run start:dev
+## Insertion of Data
 
-# production mode
-$ npm run start:prod
+For this part, we need to insert the provided data from this link: https://drive.google.com/drive/folders/1y6zT4ud7ErmHoxRZA9nprzlHqhKMohvG?usp=sharing
+
+Insert all of the data for each respective tables.
+
+[Back to Top](#hanpoom-assessment)
+
+## Running the Project
+
+1. Open your terminal.
+
+2. Clone this repository: https://github.com/adriandotdev/hanpoom-assessment.git
+
+    ![alt text](image.png)
+
+    Run this command:
+    ```bash
+    git clone https://github.com/adriandotdev/hanpoom-assessment.git
+    ```
+
+3. After successfully cloning the repository, navigate to the new created folder:
+
+    ```bash
+    cd /hanpoom-assessment
+    ```
+
+4. Install the dependencies
+
+    ```bash
+    npm run install
+    ```
+
+5. Once you successfully setup the database and install the dependencies, run the application.
+
+    ```bash
+    npm run start:dev
+    ```
+
+    and you will see this in your terminal:
+    ![alt text](image-1.png)
+
+[Back to Top](#hanpoom-assessment)
+
+## Technologies Used
+
+- NodeJS
+- NestJS
+- TypeScript
+- MySQL
+
+[Back to Top](#hanpoom-assessment)
+
+## APIs
+
+### GET Picking Slips
+
+**Endpoint**: `/api/v1/picking-slips`
+
+**HTTP Method**: `GET`
+
+**Content-Type**: `application/json`
+
+**API Queries**
+
+- limit - Limit the number of results to be returned. (Default is 10)
+- offset - Starting row of the data to be returned (Default is 0)
+- status - Picking slip status to filter. (Default is all which returns all the picking slip with status of `held`, `not printed`, and `printed`). Valid values are: `held`, `not printed` and `printed`.
+
+**Sample Response**
+
+```json
+{
+    "status": 200,
+    "data": [
+        {
+            "order_id": 1463,
+            "id": 2878,
+            "picking_slip_status": "not printed",
+            "has_pre_order_item": "true"
+        },
+        {
+            "order_id": 1462,
+            "id": 2877,
+            "picking_slip_status": "not printed",
+            "has_pre_order_item": "true"
+        },
+        {
+            "order_id": 1461,
+            "id": 2873,
+            "picking_slip_status": "not printed",
+            "has_pre_order_item": "true"
+        }
+    ],
+    "message": "OK"
+}
 ```
 
-## Run tests
+> NOTE: This API returns all the data from latest to oldest record based on its `created_at`.
 
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
-```bash
-$ npm install -g mau
-$ mau deploy
-```
-
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
-
-## Resources
-
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+[Back to Top](#hanpoom-assessment)
